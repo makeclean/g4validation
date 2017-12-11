@@ -81,6 +81,15 @@ G4VPhysicalVolume* ExN01DetectorConstruction::Construct() {
   G4LogicalVolume *sphere_log = new G4LogicalVolume(sphere, li6, "sphere_log", 0, 0, 0);
   G4PVPlacement* sphere_phys = new G4PVPlacement(0,G4ThreeVector(),sphere_log,
 						 "sphere",world_volume_log,false,0);
+
+  G4VSensitiveDetector* pSensitiveDetector = new ExN01SensitiveDetector("/flux","flux",0);
+  G4SDManager* SDMan = G4SDManager::GetSDMpointer();
+  G4SDParticleFilter *filter = new G4SDParticleFilter("neutron");
+  filter->add("neutron");
+  pSensitiveDetector->SetFilter(filter);
+  SDMan->AddNewDetector(pSensitiveDetector);
+  sphere_log->SetSensitiveDetector(pSensitiveDetector);
+
   return world_volume_phys;
 }
 
@@ -88,4 +97,5 @@ G4VPhysicalVolume* ExN01DetectorConstruction::Construct() {
 void ExN01DetectorConstruction::ConstructSDandField() {
 
   G4SDManager::GetSDMpointer()->SetVerboseLevel(1);
+  
 }

@@ -104,6 +104,7 @@ void ExN01SensitiveDetector::EndOfEvent(G4HCofThisEvent*) {
   G4cout << "\n-------->Hits Collection: in this event they are " << nofHits
          << G4endl;
          */
+  //  G4cout << "processing hits" << G4endl;
   G4double score = 0.0;
 //  G4cout << DetectorName << " " << nofHits << G4endl;
 //  G4cout << nofHits << G4endl;

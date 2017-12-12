@@ -82,7 +82,10 @@ G4VPhysicalVolume* ExN01DetectorConstruction::Construct() {
   G4PVPlacement* sphere_phys = new G4PVPlacement(0,G4ThreeVector(),sphere_log,
 						 "sphere",world_volume_log,false,0);
 
-  G4VSensitiveDetector* pSensitiveDetector = new ExN01SensitiveDetector("/flux","flux",0);
+  G4VSensitiveDetector* pSensitiveDetector = new ExN01SensitiveDetector("/flux","flux",0,sphere->GetCubicVolume()/cm3);
+  G4double vol = sphere->GetCubicVolume()/cm3;
+  //G4cout << vol << " " << G4BestUnit(vol,"Volume") << G4endl;
+  G4cout << vol << G4endl;
   G4SDManager* SDMan = G4SDManager::GetSDMpointer();
   G4SDParticleFilter *filter = new G4SDParticleFilter("neutron");
   filter->add("neutron");

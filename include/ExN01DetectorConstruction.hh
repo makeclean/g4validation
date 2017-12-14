@@ -27,6 +27,12 @@ class ExN01DetectorConstruction : public G4VUserDetectorConstruction {
   void build_histogram();
   void add_histogram_description(std::string tally_name);
   void end_histogram();
+  
+  void SetMaterialName(G4String material_name);
+  void SetAtomicNumber(G4double atomic_number);
+  void SetNucleonNumber(G4double nucleon_number);
+  void SetAtomicMass(G4double atomic_mass);
+
  private:
   std::string _to_string(int var);
 
@@ -34,10 +40,12 @@ class ExN01DetectorConstruction : public G4VUserDetectorConstruction {
 
   // Logical volumes
   //
-  std::string uwuw_filename;
-
   G4LogicalVolume* world_volume_log;
 
+  G4String fMaterialName;
+  G4double fAtomicNumber;
+  G4double fNucleonNumber;
+  G4double fAtomicMass;
 
   // DAG Logical volumes
   // G4LogicalVolume* dag_vol_log;

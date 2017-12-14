@@ -34,7 +34,7 @@
 ExN01DetectorConstruction::ExN01DetectorConstruction()
   :  world_volume_log(0) {
 }
-
+\
 // destructor
 ExN01DetectorConstruction::~ExN01DetectorConstruction() {
 }
@@ -101,4 +101,20 @@ void ExN01DetectorConstruction::ConstructSDandField() {
 
   G4SDManager::GetSDMpointer()->SetVerboseLevel(1);
   
+}
+
+void ExN01DetectorConstruction::SetAtomicNumber(G4double atomic_number) {
+  fAtomicNumber = atomic_number;
+}
+
+void ExN01DetectorConstruction::SetNucleonNumber(G4double nucleon_number) {
+  fNucleonNumber = nucleon_number;
+}
+
+void ExN01DetectorConstruction::SetAtomicMass(G4double atomic_mass) {
+  fAtomicMass = atomic_mass;
+}
+
+void ExN01DetectorConstruction::SetMaterialName(G4String material_name) {
+  fMaterialName = material_name;
 }

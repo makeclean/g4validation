@@ -31,10 +31,6 @@
 #include "ExN01DetectorMessenger.hh"
 #include "ExN01DetectorConstruction.hh"
 
-#include "G4UIdirectory.hh"
-#include "G4UIcmdWithAString.hh"
-#include "G4UIcmdWithADoubleAndUnit.hh"
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 // TODO: Maybe get material data from the outside by a seperate file ala
@@ -46,27 +42,31 @@ ExN01DetectorMessenger::ExN01DetectorMessenger(ExN01DetectorConstruction* Det)
  : G4UImessenger(),
    fDetectorConstruction(Det)
 {
-  fExN01Directory = new G4UIdirectory("/grant/");
+  fExN01Directory = new G4UIdirectory("/benchmark/");
   fExN01Directory->SetGuidance("UI commands specific to this example.");
 
-  fDetDirectory = new G4UIdirectory("/grant/det/");
+  fDetDirectory = new G4UIdirectory("/benchmark/material/");
   fDetDirectory->SetGuidance("Detector construction control");
 
-  fTargMatCmd = new G4UIcmdWithAString("/grant/det/setRegionMaterial",this);
+  fTargMatCmd = new G4UIcmdWithAString("/benchmark/material/setRegionMaterial",this);
   fTargMatCmd->SetGuidance("Select Material of a Given Region.");
   fTargMatCmd->SetParameterName("choice",false);
   fTargMatCmd->AvailableForStates(G4State_PreInit,G4State_Idle);
 
-  fChamMatCmd = new G4UIcmdWithAString("/grant/det/setChamberMaterial",this);
-  fChamMatCmd->SetGuidance("Select Material of the Chamber.");
-  fChamMatCmd->SetParameterName("choice",false);
-  fChamMatCmd->AvailableForStates(G4State_PreInit,G4State_Idle);
+  fTargAtomicNumber = new G4UIcmdWithADoubleAndUnit("/benchmark/material/setRegionAtomicNumber",this);
+  fTargAtomicNumber->SetGuidance("Set the atomic number of the material.");
+  fTargAtomicNumber->SetParameterName("choice",false);
+  fTargAtomicNumber->AvailableForStates(G4State_PreInit,G4State_Idle);
 
-  fStepMaxCmd = new G4UIcmdWithADoubleAndUnit("/grant/det/stepMax",this);
-  fStepMaxCmd->SetGuidance("Define a step max");
-  fStepMaxCmd->SetParameterName("stepMax",false);
-  fStepMaxCmd->SetUnitCategory("Length");
-  fStepMaxCmd->AvailableForStates(G4State_Idle);
+  fTargNucleonNumber = new G4UIcmdWithADoubleAndUnit("/benchmark/material/setRegionNucleonNumber",this);
+  fTargNucleonNumber->SetGuidance("Set the atomic number of the material.");
+  fTargNucleonNumber->SetParameterName("choice",false);
+  fTargNucleonNumber->AvailableForStates(G4State_PreInit,G4State_Idle);
+
+  fTargAtomicMass = new G4UIcmdWithADoubleAndUnit("/benchmark/material/setRegionAtomicMass",this);
+  fTargAtomicMass->SetGuidance("Set the atomic number of the material.");
+  fTargAtomicMass->SetParameterName("choice",false);
+  fTargAtomicMass->AvailableForStates(G4State_PreInit,G4State_Idle);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -74,9 +74,9 @@ ExN01DetectorMessenger::ExN01DetectorMessenger(ExN01DetectorConstruction* Det)
 ExN01DetectorMessenger::~ExN01DetectorMessenger()
 {
   delete fTargMatCmd;
-  delete fChamMatCmd;
-  delete fStepMaxCmd;
-  delete fExN01Directory;
+  delete fTargAtomicNumber;
+  delete fTargNucleonNumber;
+  delete fTargAtomicMass;
   delete fDetDirectory;
 }
 
@@ -84,18 +84,21 @@ ExN01DetectorMessenger::~ExN01DetectorMessenger()
 
 void ExN01DetectorMessenger::SetNewValue(G4UIcommand* command,G4String newValue)
 {
-  /*
-  if( command == fTargMatCmd )
-   { fDetectorConstruction->SetTargetMaterial(newValue);}
-
-  if( command == fChamMatCmd )
-   { fDetectorConstruction->SetChamberMaterial(newValue);}
-
-  if( command == fStepMaxCmd ) {
-    fDetectorConstruction
-      ->SetMaxStep(fStepMaxCmd->GetNewDoubleValue(newValue));
-  } 
-  */  
+  if( command == fTargMatCmd ) {
+    fDetectorConstruction -> SetMaterialName(newValue);
+  }
+  if ( command == fTargAtomicNumber ) {
+    G4double atomic_number = fTargAtomicNumber->GetNewDoubleValue(newValue);
+    fDetectorConstruction -> SetAtomicNumber(atomic_number);
+  }
+  if ( command == fTargNucleonNumber ) {
+    G4double nucleon_number = fTargNucleonNumber->GetNewDoubleValue(newValue);
+    fDetectorConstruction -> SetNucleonNumber(nucleon_number);
+  }
+  if ( command == fTargAtomicMass ) {
+    G4double atomic_mass = fTargAtomicMass->GetNewDoubleValue(newValue);
+    fDetectorConstruction -> SetAtomicMass(atomic_mass);
+  }
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

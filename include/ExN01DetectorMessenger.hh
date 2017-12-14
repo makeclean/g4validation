@@ -32,21 +32,15 @@
 #define ExN01DetectorMessenger_h 1
 
 #include "globals.hh"
+#include "G4UIdirectory.hh"
 #include "G4UImessenger.hh"
+#include "G4UIcmdWithADoubleAndUnit.hh"
+#include "G4UIcmdWithAString.hh"
 
 class ExN01DetectorConstruction;
-class G4UIdirectory;
-class G4UIcmdWithAString;
-class G4UIcmdWithADoubleAndUnit;
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 /// Messenger class that defines commands for ExN01DetectorConstruction.
-///
-/// It implements commands:
-/// - /B2/det/setTargetMaterial name
-/// - /B2/det/setChamberMaterial name
-/// - /B2/det/stepMax value unit
 
 class ExN01DetectorMessenger: public G4UImessenger
 {
@@ -62,10 +56,10 @@ class ExN01DetectorMessenger: public G4UImessenger
     G4UIdirectory*           fExN01Directory;
     G4UIdirectory*           fDetDirectory;
 
-    G4UIcmdWithAString*      fTargMatCmd;
-    G4UIcmdWithAString*      fChamMatCmd;
-
-    G4UIcmdWithADoubleAndUnit* fStepMaxCmd;
+    G4UIcmdWithAString* fTargMatCmd;
+    G4UIcmdWithADoubleAndUnit* fTargAtomicNumber;
+    G4UIcmdWithADoubleAndUnit* fTargNucleonNumber;
+    G4UIcmdWithADoubleAndUnit* fTargAtomicMass;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

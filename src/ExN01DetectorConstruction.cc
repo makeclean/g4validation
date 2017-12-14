@@ -68,7 +68,7 @@ G4VPhysicalVolume* ExN01DetectorConstruction::Construct() {
                                                        "world_vol", 0, false, 0);
 
   // material for sphere
-  G4Isotope* li6_iso = new G4Isotope("Li-6", 3, 6, 6. * g / mole);
+  G4Isotope* li6_iso = new G4Isotope("Li-6", 3, 6, 6.015122887 * g / mole);
   G4Element* li6_el = new G4Element("Li-6","Li-6",1);
   li6_el->AddIsotope(li6_iso,100.*perCent);
   G4Material* li6 = new G4Material("Li-6",density=1.0*g/cm3,1);

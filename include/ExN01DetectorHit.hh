@@ -51,13 +51,16 @@ class ExN01DetectorHit : public G4VHit {
   void SetWeight(G4double weight)  {
     fWeight = weight;
   };
+
+  /*
   void SetParticleName(G4String name) {
     fName = name;
   };
   void SetParticlePDG(G4int PID)      {
     fPID = PID;
   };
-
+  */
+  
   // Get methods
   G4int GetTrackID() const     {
     return fTrackID;
@@ -76,12 +79,14 @@ class ExN01DetectorHit : public G4VHit {
   G4double GetWeight()      const {
     return fWeight;
   };
+  /*
   G4String GetParticleName() const {
     return fName;
   };
   G4int GetParticlePDG() const {
     return fPID;
   };
+  */
 
  private:
 

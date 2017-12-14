@@ -88,8 +88,8 @@ G4bool ExN01SensitiveDetector::ProcessHits(G4Step* aStep,
   newHit->SetParticleEnergy(aStep->GetPreStepPoint()->GetKineticEnergy());
   newHit->SetTrackLength(aStep->GetTrack()->GetStepLength());
   newHit->SetWeight(aStep->GetTrack()->GetWeight());
-  newHit->SetParticleName(aStep->GetTrack()->GetDefinition()->GetParticleName());
-  newHit->SetParticlePDG(aStep->GetTrack()->GetDefinition()->GetPDGEncoding());
+  //  newHit->SetParticleName(aStep->GetTrack()->GetDefinition()->GetParticleName());
+  //newHit->SetParticlePDG(aStep->GetTrack()->GetDefinition()->GetPDGEncoding());
 
   fHitsCollection->insert(newHit);
 
@@ -114,7 +114,7 @@ void ExN01SensitiveDetector::EndOfEvent(G4HCofThisEvent*) {
   for (G4int i = 0; i < nofHits; i++) {
       score = (*fHitsCollection)[i]->GetWeight() *
               (*fHitsCollection)[i]->GetTrackLength()
-              / cm / DetectorVolume;
+              / cm;
       G4double erg = (*fHitsCollection)[i]->GetKE();
 
       analysisManager->FillH1(0, erg, score);
@@ -122,7 +122,9 @@ void ExN01SensitiveDetector::EndOfEvent(G4HCofThisEvent*) {
       //    G4cout << hist_index << " " << DetectorIndex << " " << score << "  " << erg << G4endl;
     }
     //G4cout << DetectorIndex << " " << score << G4endl;
- 
+
+  // NOTE THE HISTOGRAM PRODUCED IS NOT NORMALISED - WE NEED TO DIVIDE BY THE TOTAL NUMBER OF
+  // PRIMARIES LATER ON - ALSO ASSUMES THAT THE VOLUME OF THE DETECTOR IS 1 CC
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

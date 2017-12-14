@@ -100,15 +100,18 @@ void ExN01RunAction::BeginOfRunAction(const G4Run* /*run*/) {
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void ExN01RunAction::EndOfRunAction(const G4Run* /*run*/ ) {
+void ExN01RunAction::EndOfRunAction(const G4Run* run ) {
   G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
-  // print histogram statistics
+  // print histogram statisticsx
+  /*
   G4cout << "Neutron Flux " << analysisManager->GetH1(0)->mean() << " ";
   G4cout << "error " << analysisManager->GetH1(0)->rms() << G4endl;
   
   G4cout << "Neutron Current " << analysisManager->GetH1(0)->mean() << " ";
   G4cout << "error " << analysisManager->GetH1(0)->rms() << G4endl;
-
+  */
+  //  G4cout << run->GetNumberOfEvent() << G4endl;
+  analysisManager->GetH1(0)->scale(1./run->GetNumberOfEvent());
   analysisManager->Write();
   analysisManager->CloseFile();
 

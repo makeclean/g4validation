@@ -5,6 +5,7 @@
 class G4LogicalVolume;
 class G4VPhysicalVolume;
 
+#include "ExN01DetectorMessenger.hh"
 #include "G4VUserDetectorConstruction.hh"
 #include "G4SDParticleFilter.hh"
 #include <map>
@@ -40,6 +41,7 @@ class ExN01DetectorConstruction : public G4VUserDetectorConstruction {
 
   // Logical volumes
   //
+  ExN01DetectorMessenger* detectorMessenger;
   G4LogicalVolume* world_volume_log;
 
   G4String fMaterialName;

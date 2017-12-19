@@ -40,6 +40,7 @@ int main(int argc, char* argv[]) {
   // setup detectors and scores
   runManager->SetUserInitialization(new ExN01DetectorConstruction());
 
+  // setup physics
   G4PhysListFactory* physListFactory = new G4PhysListFactory();
   G4VUserPhysicsList* physicsList =
       physListFactory->GetReferencePhysList("QGSP_BIC_HP");
@@ -51,7 +52,7 @@ int main(int argc, char* argv[]) {
   ExN01ActionInitialization* actionInitialization = new ExN01ActionInitialization();
   runManager->SetUserInitialization(actionInitialization);
   //
-  runManager->Initialize();
+  //  runManager->Initialize();
 
   // Get the pointer to the UI manager and set verbosities
   G4UImanager* UImanager = G4UImanager::GetUIpointer();
@@ -67,10 +68,8 @@ int main(int argc, char* argv[]) {
   } else {
     G4VisManager* visManager = new G4VisExecutive;
     visManager->Initialize();
-
     G4UIExecutive* UI = new G4UIExecutive(argc, argv);
     UImanager->ApplyCommand("/control/execute vis.mac");
-
     UI->SessionStart();
     delete visManager;
     delete UI;

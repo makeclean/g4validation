@@ -53,19 +53,19 @@ ExN01DetectorMessenger::ExN01DetectorMessenger(ExN01DetectorConstruction* Det)
   fTargMatCmd->SetParameterName("choice",false);
   fTargMatCmd->AvailableForStates(G4State_PreInit,G4State_Idle);
 
-  fTargAtomicNumber = new G4UIcmdWithADoubleAndUnit("/benchmark/material/setRegionAtomicNumber",this);
+  fTargAtomicNumber = new G4UIcmdWithADouble("/benchmark/material/setRegionAtomicNumber",this);
   fTargAtomicNumber->SetGuidance("Set the atomic number of the material.");
-  fTargAtomicNumber->SetParameterName("choice",false);
+  fTargAtomicNumber->SetParameterName("atomicNumber",false);
   fTargAtomicNumber->AvailableForStates(G4State_PreInit,G4State_Idle);
 
-  fTargNucleonNumber = new G4UIcmdWithADoubleAndUnit("/benchmark/material/setRegionNucleonNumber",this);
+  fTargNucleonNumber = new G4UIcmdWithADouble("/benchmark/material/setRegionNucleonNumber",this);
   fTargNucleonNumber->SetGuidance("Set the atomic number of the material.");
-  fTargNucleonNumber->SetParameterName("choice",false);
+  fTargNucleonNumber->SetParameterName("nucleonNumber",false);
   fTargNucleonNumber->AvailableForStates(G4State_PreInit,G4State_Idle);
 
-  fTargAtomicMass = new G4UIcmdWithADoubleAndUnit("/benchmark/material/setRegionAtomicMass",this);
+  fTargAtomicMass = new G4UIcmdWithADouble("/benchmark/material/setRegionAtomicMass",this);
   fTargAtomicMass->SetGuidance("Set the atomic number of the material.");
-  fTargAtomicMass->SetParameterName("choice",false);
+  fTargAtomicMass->SetParameterName("atomicMass",false);
   fTargAtomicMass->AvailableForStates(G4State_PreInit,G4State_Idle);
 }
 
@@ -83,7 +83,7 @@ ExN01DetectorMessenger::~ExN01DetectorMessenger()
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void ExN01DetectorMessenger::SetNewValue(G4UIcommand* command,G4String newValue)
-{
+{  
   if( command == fTargMatCmd ) {
     fDetectorConstruction -> SetMaterialName(newValue);
   }

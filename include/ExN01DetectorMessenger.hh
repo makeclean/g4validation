@@ -34,6 +34,7 @@
 #include "globals.hh"
 #include "G4UIdirectory.hh"
 #include "G4UImessenger.hh"
+#include "G4UIcmdWithADouble.hh"
 #include "G4UIcmdWithADoubleAndUnit.hh"
 #include "G4UIcmdWithAString.hh"
 
@@ -57,9 +58,9 @@ class ExN01DetectorMessenger: public G4UImessenger
     G4UIdirectory*           fDetDirectory;
 
     G4UIcmdWithAString* fTargMatCmd;
-    G4UIcmdWithADoubleAndUnit* fTargAtomicNumber;
-    G4UIcmdWithADoubleAndUnit* fTargNucleonNumber;
-    G4UIcmdWithADoubleAndUnit* fTargAtomicMass;
+    G4UIcmdWithADouble* fTargAtomicNumber;
+    G4UIcmdWithADouble* fTargNucleonNumber;
+    G4UIcmdWithADouble* fTargAtomicMass;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

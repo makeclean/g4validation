@@ -32,11 +32,13 @@
 
 // constructor
 ExN01DetectorConstruction::ExN01DetectorConstruction()
-  :  world_volume_log(0) {
+  : world_volume_log(0) {
+  detectorMessenger = new ExN01DetectorMessenger(this);
 }
-\
+
 // destructor
 ExN01DetectorConstruction::~ExN01DetectorConstruction() {
+  delete detectorMessenger;
 }
 
 // the main method - takes the problem and loads
@@ -66,19 +68,19 @@ G4VPhysicalVolume* ExN01DetectorConstruction::Construct() {
   world_volume_log->SetVisAttributes(invis);
   G4PVPlacement* world_volume_phys = new G4PVPlacement(0, G4ThreeVector(), world_volume_log,
                                                        "world_vol", 0, false, 0);
-
+  
   // material for sphere
-  G4Isotope* li6_iso = new G4Isotope("Li-6", 3, 6, 6.015122887 * g / mole);
-  G4Element* li6_el = new G4Element("Li-6","Li-6",1);
-  li6_el->AddIsotope(li6_iso,100.*perCent);
-  G4Material* li6 = new G4Material("Li-6",density=1.0*g/cm3,1);
-  li6->AddElement(li6_el,1);
+  G4Isotope* iso = new G4Isotope(fMaterialName, fAtomicNumber, fNucleonNumber, fAtomicMass * g / mole);
+  G4Element* element = new G4Element(fMaterialName,fMaterialName,1);
+  element->AddIsotope(iso,100.*perCent);
+  G4Material* mat = new G4Material(fMaterialName,density=1.0*g/cm3,1);
+  mat->AddElement(element,1);
 
   G4cout << *(G4Material::GetMaterialTable()) << G4endl;
 
   // build the sphere
   G4Orb* sphere = new G4Orb("sphere",30.*cm);
-  G4LogicalVolume *sphere_log = new G4LogicalVolume(sphere, li6, "sphere_log", 0, 0, 0);
+  G4LogicalVolume *sphere_log = new G4LogicalVolume(sphere, mat, "sphere_log", 0, 0, 0);
   G4PVPlacement* sphere_phys = new G4PVPlacement(0,G4ThreeVector(),sphere_log,
 						 "sphere",world_volume_log,false,0);
 

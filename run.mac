@@ -1,5 +1,8 @@
 /gps/particle neutron
 /gps/ang/type iso
 /gps/energy 14.08 MeV
+/run/setCutForAGivenParticle e- 10. cm
+/run/setCutForAGivenParticle gamma 30. cm
+/run/setCutForAGivenParticle proton 30. cm
 /run/printProgress 10000
 /run/beamOn 100000
